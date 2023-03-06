@@ -121,6 +121,9 @@ df_Map_Transaction_2018 = pd.concat([df_map_2018_1, df_map_2018_2, df_map_2018_3
 df_Map_Transaction = pd.concat([df_Map_Transaction_2022,df_Map_Transaction_2021,df_Map_Transaction_2020,df_Map_Transaction_2019,df_Map_Transaction_2018], axis=0)
 
 df_Map_Transaction.to_excel("df_Map_Transaction.xlsx")
+from google.colab import files
+files.download("df_Map_Transaction.xlsx")
+
 
 display(df_Map_Transaction)
 
@@ -313,5 +316,7 @@ df_map_user = pd.concat([df_map_user_2022,df_map_user_2021,df_map_user_2020,df_m
 
 
 df_map_user.to_excel("df_map_user.xlsx")
+from google.colab import files
+files.download("df_map_user.xlsx")
 
 display(df_map_user)
