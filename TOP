@@ -114,6 +114,9 @@ df_Top_Transaction_2018 = pd.concat([df_Top_Trans_2018_1, df_Top_Trans_2018_2, d
 df_Top_Transaction = pd.concat([df_Top_Transaction_2022,df_Top_Transaction_2021,df_Top_Transaction_2020,df_Top_Transaction_2019,df_Top_Transaction_2018], axis=0)
 
 df_Top_Transaction.to_excel("df_Top_Transaction.xlsx")
+from google.colab import files
+files.download("df_Top_Transaction.xlsx")
+
 
 display(df_Top_Transaction)
 
@@ -238,5 +241,7 @@ df_Top_user = pd.concat([df_Top_user_2022,df_Top_user_2021,df_Top_user_2020,df_T
 
 
 df_Top_user.to_excel("df_Top_user.xlsx")
+from google.colab import files
+files.download("df_Top_user.xlsx")
 
 display(df_Top_user)
