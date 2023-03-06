@@ -136,6 +136,8 @@ df_Agg_Trans_2018 = pd.concat([df_2018_Agg_Trans_1, df_2018_Agg_Trans_2, df_2018
 df_Agg_Trans = pd.concat([df_Agg_Trans_2022,df_Agg_Trans_2021,df_Agg_Trans_2020,df_Agg_Trans_2019,df_Agg_Trans_2018], axis=0)
 
 df_Agg_Trans.to_excel("df_Agg_Transaction.xlsx")
+from google.colab import files
+files.download("df_Agg_Transaction.xlsx")
 
 display(df_Agg_Trans)
 
@@ -232,5 +234,7 @@ df_Agg_User_2018 = pd.concat([df_Agg_User_2018_1, df_Agg_User_2018_2, df_Agg_Use
 df_Agg_User = pd.concat([df_Agg_User_2022,df_Agg_User_2021,df_Agg_User_2020,df_Agg_User_2019,df_Agg_User_2018], axis=0)
 
 df_Agg_User.to_excel("df_Agg_User.xlsx")
+from google.colab import files
+files.download("df_Agg_User.xlsx")
 
 display(df_Agg_User)
