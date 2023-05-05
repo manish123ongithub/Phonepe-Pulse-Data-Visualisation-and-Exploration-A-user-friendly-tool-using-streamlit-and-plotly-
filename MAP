@@ -1,322 +1,69 @@
-import json
-import pandas as pd
+# Dataframe of map transactions
 
-# Load the JSON file into a Python object for the map data - 2022
-with open(
-        "/content/drive/MyDrive/data/map/transaction/hover/country/india/2022/1.json") as f:
-    data_2022_1 = json.load(f)
+path3 = "C:/Users/lenvo/pulse/data/map/transaction/hover/country/india/state/"
 
-with open(
-        "/content/drive/MyDrive/data/map/transaction/hover/country/india/2022/2.json") as f:
-    data_2022_2 = json.load(f)
+map_trans_list = os.listdir(path3)
 
-with open(
-        "/content/drive/MyDrive/data/map/transaction/hover/country/india/2022/3.json") as f:
-    data_2022_3 = json.load(f)
+columns3 = {'State': [], 'Year': [], 'Quarter': [], 'District': [], 'Count': [],
+            'Amount': []}
 
-with open(
-        "/content/drive/MyDrive/data/map/transaction/hover/country/india/2022/4.json") as f:
-    data_2022_4 = json.load(f)
+for state in map_trans_list:
+    cur_state = path3 + state + "/"
+    map_year_list = os.listdir(cur_state)
 
-# Load the JSON file into a Python object for the map data - 2021
-with open(
-        "/content/drive/MyDrive/data/map/transaction/hover/country/india/2021/1.json") as f:
-    data_2021_1 = json.load(f)
+    for year in map_year_list:
+        cur_year = cur_state + year + "/"
+        map_file_list = os.listdir(cur_year)
 
-with open(
-        "/content/drive/MyDrive/data/map/transaction/hover/country/india/2021/2.json") as f:
-    data_2021_2 = json.load(f)
+        for file in map_file_list:
+            cur_file = cur_year + file
+            data = open(cur_file, 'r')
+            C = json.load(data)
 
-with open(
-        "/content/drive/MyDrive/data/map/transaction/hover/country/india/2021/3.json") as f:
-    data_2021_3 = json.load(f)
+            for i in C["data"]["hoverDataList"]:
+                district = i["name"]
+                count = i["metric"][0]["count"]
+                amount = i["metric"][0]["amount"]
+                columns3["District"].append(district)
+                columns3["Count"].append(count)
+                columns3["Amount"].append(amount)
+                columns3['State'].append(state)
+                columns3['Year'].append(year)
+                columns3['Quarter'].append(int(file.strip('.json')))
 
-with open(
-        "/content/drive/MyDrive/data/map/transaction/hover/country/india/2021/4.json") as f:
-    data_2021_4 = json.load(f)
+df_map_trans = pd.DataFrame(columns3)
 
-# Load the JSON file into a Python object for the map data - 2020
-with open(
-        "/content/drive/MyDrive/data/map/transaction/hover/country/india/2020/1.json") as f:
-    data_2020_1 = json.load(f)
+# Dataframe of map user
 
-with open(
-        "/content/drive/MyDrive/data/map/transaction/hover/country/india/2020/2.json") as f:
-    data_2020_2 = json.load(f)
+path4 = "C:/Users/lenvo/pulse/data/map/user/hover/country/india/state/"
 
-with open(
-        "/content/drive/MyDrive/data/map/transaction/hover/country/india/2020/3.json") as f:
-    data_2020_3 = json.load(f)
+map_user_list = os.listdir(path4)
 
-with open(
-        "/content/drive/MyDrive/data/map/transaction/hover/country/india/2020/4.json") as f:
-    data_2020_4 = json.load(f)
+columns4 = {"State": [], "Year": [], "Quarter": [], "District": [],
+            "RegisteredUser": [], "AppOpens": []}
 
-# Load the JSON file into a Python object for the map data - 2019
-with open(
-        "/content/drive/MyDrive/data/map/transaction/hover/country/india/2019/1.json") as f:
-    data_2019_1 = json.load(f)
+for state in map_user_list:
+    cur_state = path4 + state + "/"
+    map_year_list = os.listdir(cur_state)
 
-with open(
-        "/content/drive/MyDrive/data/map/transaction/hover/country/india/2019/2.json") as f:
-    data_2019_2 = json.load(f)
+    for year in map_year_list:
+        cur_year = cur_state + year + "/"
+        map_file_list = os.listdir(cur_year)
 
-with open(
-        "/content/drive/MyDrive/data/map/transaction/hover/country/india/2019/3.json") as f:
-    data_2019_3 = json.load(f)
+        for file in map_file_list:
+            cur_file = cur_year + file
+            data = open(cur_file, 'r')
+            D = json.load(data)
 
-with open(
-        "/content/drive/MyDrive/data/map/transaction/hover/country/india/2019/4.json") as f:
-    data_2019_4 = json.load(f)
+            for i in D["data"]["hoverData"].items():
+                district = i[0]
+                registereduser = i[1]["registeredUsers"]
+                appOpens = i[1]['appOpens']
+                columns4["District"].append(district)
+                columns4["RegisteredUser"].append(registereduser)
+                columns4["AppOpens"].append(appOpens)
+                columns4['State'].append(state)
+                columns4['Year'].append(year)
+                columns4['Quarter'].append(int(file.strip('.json')))
 
-# Load the JSON file into a Python object for the map data - 2018
-with open(
-        "/content/drive/MyDrive/data/map/transaction/hover/country/india/2018/1.json") as f:
-    data_2018_1 = json.load(f)
-
-with open(
-        "/content/drive/MyDrive/data/map/transaction/hover/country/india/2018/2.json") as f:
-    data_2018_2 = json.load(f)
-
-with open(
-        "/content/drive/MyDrive/data/map/transaction/hover/country/india/2018/3.json") as f:
-    data_2018_3 = json.load(f)
-
-with open(
-        "/content/drive/MyDrive/data/map/transaction/hover/country/india/2018/4.json") as f:
-    data_2018_4 = json.load(f)
-
-df_map_2022_1 = pd.json_normalize(data_2022_1['data']['hoverDataList'], 'metric', ['name'])
-df_map_2022_2 = pd.json_normalize(data_2022_2['data']['hoverDataList'], 'metric', ['name'])
-df_map_2022_3 = pd.json_normalize(data_2022_3['data']['hoverDataList'], 'metric', ['name'])
-df_map_2022_4 = pd.json_normalize(data_2022_4['data']['hoverDataList'], 'metric', ['name'])
-
-df_map_2021_1 = pd.json_normalize(data_2021_1['data']['hoverDataList'], 'metric', ['name'])
-df_map_2021_2 = pd.json_normalize(data_2021_2['data']['hoverDataList'], 'metric', ['name'])
-df_map_2021_3 = pd.json_normalize(data_2021_3['data']['hoverDataList'], 'metric', ['name'])
-df_map_2021_4 = pd.json_normalize(data_2021_4['data']['hoverDataList'], 'metric', ['name'])
-
-df_map_2020_1 = pd.json_normalize(data_2020_1['data']['hoverDataList'], 'metric', ['name'])
-df_map_2020_2 = pd.json_normalize(data_2020_2['data']['hoverDataList'], 'metric', ['name'])
-df_map_2020_3 = pd.json_normalize(data_2020_3['data']['hoverDataList'], 'metric', ['name'])
-df_map_2020_4 = pd.json_normalize(data_2020_4['data']['hoverDataList'], 'metric', ['name'])
-
-df_map_2019_1 = pd.json_normalize(data_2019_1['data']['hoverDataList'], 'metric', ['name'])
-df_map_2019_2 = pd.json_normalize(data_2019_2['data']['hoverDataList'], 'metric', ['name'])
-df_map_2019_3 = pd.json_normalize(data_2019_3['data']['hoverDataList'], 'metric', ['name'])
-df_map_2019_4 = pd.json_normalize(data_2019_4['data']['hoverDataList'], 'metric', ['name'])
-
-df_map_2018_1 = pd.json_normalize(data_2018_1['data']['hoverDataList'], 'metric', ['name'])
-df_map_2018_2 = pd.json_normalize(data_2018_2['data']['hoverDataList'], 'metric', ['name'])
-df_map_2018_3 = pd.json_normalize(data_2018_3['data']['hoverDataList'], 'metric', ['name'])
-df_map_2018_4 = pd.json_normalize(data_2018_4['data']['hoverDataList'], 'metric', ['name'])
-
-########################### To merge the data frame in to one #################################################
-df_Map_Transaction_2022 = pd.concat([df_map_2022_1, df_map_2022_2, df_map_2022_3, df_map_2022_4], axis=0)
-df_Map_Transaction_2021 = pd.concat([df_map_2021_1, df_map_2021_2, df_map_2021_3, df_map_2021_4], axis=0)
-df_Map_Transaction_2020 = pd.concat([df_map_2020_1, df_map_2020_2, df_map_2020_3, df_map_2020_4], axis=0)
-df_Map_Transaction_2019 = pd.concat([df_map_2019_1, df_map_2019_2, df_map_2019_3, df_map_2019_4], axis=0)
-df_Map_Transaction_2018 = pd.concat([df_map_2018_1, df_map_2018_2, df_map_2018_3, df_map_2018_4], axis=0)
-
-df_Map_Transaction = pd.concat([df_Map_Transaction_2022,df_Map_Transaction_2021,df_Map_Transaction_2020,df_Map_Transaction_2019,df_Map_Transaction_2018], axis=0)
-
-df_Map_Transaction.to_excel("df_Map_Transaction.xlsx")
-from google.colab import files
-files.download("df_Map_Transaction.xlsx")
-
-
-display(df_Map_Transaction)
-
-################################################ Map User ##############################################################
-
-# Load the JSON file into a Python object for the map data - 2022
-with open(
-        "/content/drive/MyDrive/data/map/user/hover/country/india/2022/1.json") as f:
-    data_map_user_2022_1 = json.load(f)
-with open(
-        "/content/drive/MyDrive/data/map/user/hover/country/india/2022/2.json") as f:
-    data_map_user_2022_2 = json.load(f)
-with open(
-        "/content/drive/MyDrive/data/map/user/hover/country/india/2022/3.json") as f:
-    data_map_user_2022_3 = json.load(f)
-with open(
-        "/content/drive/MyDrive/data/map/user/hover/country/india/2022/4.json") as f:
-    data_map_user_2022_4 = json.load(f)
-
-# Load the JSON file into a Python object for the map data - 2021
-with open(
-        "/content/drive/MyDrive/data/map/user/hover/country/india/2021/1.json") as f:
-    data_map_user_2021_1 = json.load(f)
-with open(
-        "/content/drive/MyDrive/data/map/user/hover/country/india/2021/2.json") as f:
-    data_map_user_2021_2 = json.load(f)
-with open(
-        "/content/drive/MyDrive/data/map/user/hover/country/india/2021/3.json") as f:
-    data_map_user_2021_3 = json.load(f)
-with open(
-        "/content/drive/MyDrive/data/map/user/hover/country/india/2021/4.json") as f:
-    data_map_user_2021_4 = json.load(f)
-
-# Load the JSON file into a Python object for the map data - 2020
-with open(
-        "/content/drive/MyDrive/data/map/user/hover/country/india/2020/1.json") as f:
-    data_map_user_2020_1 = json.load(f)
-with open(
-        "/content/drive/MyDrive/data/map/user/hover/country/india/2020/2.json") as f:
-    data_map_user_2020_2 = json.load(f)
-with open(
-        "/content/drive/MyDrive/data/map/user/hover/country/india/2020/3.json") as f:
-    data_map_user_2020_3 = json.load(f)
-with open(
-        "/content/drive/MyDrive/data/map/user/hover/country/india/2020/4.json") as f:
-    data_map_user_2020_4 = json.load(f)
-
-# Load the JSON file into a Python object for the map data - 2019
-with open(
-        "/content/drive/MyDrive/data/map/user/hover/country/india/2019/1.json") as f:
-    data_map_user_2019_1 = json.load(f)
-with open(
-        "/content/drive/MyDrive/data/map/user/hover/country/india/2019/2.json") as f:
-    data_map_user_2019_2 = json.load(f)
-with open(
-        "/content/drive/MyDrive/data/map/user/hover/country/india/2019/3.json") as f:
-    data_map_user_2019_3 = json.load(f)
-with open(
-        "/content/drive/MyDrive/data/map/user/hover/country/india/2019/4.json") as f:
-    data_map_user_2019_4 = json.load(f)
-
-# Load the JSON file into a Python object for the map data - 2018
-with open(
-        "/content/drive/MyDrive/data/map/user/hover/country/india/2018/1.json") as f:
-    data_map_user_2018_1 = json.load(f)
-with open(
-        "/content/drive/MyDrive/data/map/user/hover/country/india/2018/2.json") as f:
-    data_map_user_2018_2 = json.load(f)
-with open(
-        "/content/drive/MyDrive/data/map/user/hover/country/india/2018/3.json") as f:
-    data_map_user_2018_3 = json.load(f)
-with open(
-        "/content/drive/MyDrive/data/map/user/hover/country/india/2018/4.json") as f:
-    data_map_user_2018_4 = json.load(f)
-
-# Dat Frames 2022
-# Data Frames 2022_1
-df_map_user_2022_1 = pd.DataFrame(data_map_user_2022_1["data"]["hoverData"]).transpose()
-df_map_user_2022_1.reset_index(inplace=True)
-df_map_user_2022_1.rename(columns={"index": "State"}, inplace=True)
-
-# Data Frames 2022_2
-df_map_user_2022_2 = pd.DataFrame(data_map_user_2022_2["data"]["hoverData"]).transpose()
-df_map_user_2022_2.reset_index(inplace=True)
-df_map_user_2022_2.rename(columns={"index": "State"}, inplace=True)
-
-# Data Frames 2022_3
-df_map_user_2022_3 = pd.DataFrame(data_map_user_2022_3["data"]["hoverData"]).transpose()
-df_map_user_2022_3.reset_index(inplace=True)
-df_map_user_2022_3.rename(columns={"index": "State"}, inplace=True)
-
-# Data Frames 2022_4
-df_map_user_2022_4 = pd.DataFrame(data_map_user_2022_4["data"]["hoverData"]).transpose()
-df_map_user_2022_4.reset_index(inplace=True)
-df_map_user_2022_4.rename(columns={"index": "State"}, inplace=True)
-
-# Dat Frames 2021
-# Data Frames 2021_1
-df_map_user_2021_1 = pd.DataFrame(data_map_user_2021_1["data"]["hoverData"]).transpose()
-df_map_user_2021_1.reset_index(inplace=True)
-df_map_user_2021_1.rename(columns={"index": "State"}, inplace=True)
-
-# Data Frames 2021_2
-df_map_user_2021_2 = pd.DataFrame(data_map_user_2021_2["data"]["hoverData"]).transpose()
-df_map_user_2021_2.reset_index(inplace=True)
-df_map_user_2021_2.rename(columns={"index": "State"}, inplace=True)
-
-# Data Frames 2021_3
-df_map_user_2021_3 = pd.DataFrame(data_map_user_2021_3["data"]["hoverData"]).transpose()
-df_map_user_2021_3.reset_index(inplace=True)
-df_map_user_2021_3.rename(columns={"index": "State"}, inplace=True)
-
-# Data Frames 2021_4
-df_map_user_2021_4 = pd.DataFrame(data_map_user_2021_4["data"]["hoverData"]).transpose()
-df_map_user_2021_4.reset_index(inplace=True)
-df_map_user_2021_4.rename(columns={"index": "State"}, inplace=True)
-
-# Dat Frames 2020
-# Data Frames 2020_1
-df_map_user_2020_1 = pd.DataFrame(data_map_user_2020_1["data"]["hoverData"]).transpose()
-df_map_user_2020_1.reset_index(inplace=True)
-df_map_user_2020_1.rename(columns={"index": "State"}, inplace=True)
-
-# Data Frames 2020_2
-df_map_user_2020_2 = pd.DataFrame(data_map_user_2020_2["data"]["hoverData"]).transpose()
-df_map_user_2020_2.reset_index(inplace=True)
-df_map_user_2020_2.rename(columns={"index": "State"}, inplace=True)
-
-# Data Frames 2020_3
-df_map_user_2020_3 = pd.DataFrame(data_map_user_2020_3["data"]["hoverData"]).transpose()
-df_map_user_2020_3.reset_index(inplace=True)
-df_map_user_2020_3.rename(columns={"index": "State"}, inplace=True)
-
-# Data Frames 2020_4
-df_map_user_2020_4 = pd.DataFrame(data_map_user_2020_4["data"]["hoverData"]).transpose()
-df_map_user_2020_4.reset_index(inplace=True)
-df_map_user_2020_4.rename(columns={"index": "State"}, inplace=True)
-
-# Dat Frames 2019
-# Data Frames 2019_1
-df_map_user_2019_1 = pd.DataFrame(data_map_user_2019_1["data"]["hoverData"]).transpose()
-df_map_user_2019_1.reset_index(inplace=True)
-df_map_user_2019_1.rename(columns={"index": "State"}, inplace=True)
-
-# Data Frames 2019_2
-df_map_user_2019_2 = pd.DataFrame(data_map_user_2019_2["data"]["hoverData"]).transpose()
-df_map_user_2019_2.reset_index(inplace=True)
-df_map_user_2019_2.rename(columns={"index": "State"}, inplace=True)
-
-# Data Frames 2019_3
-df_map_user_2019_3 = pd.DataFrame(data_map_user_2019_3["data"]["hoverData"]).transpose()
-df_map_user_2019_3.reset_index(inplace=True)
-df_map_user_2019_3.rename(columns={"index": "State"}, inplace=True)
-
-# Data Frames 2019_4
-df_map_user_2019_4 = pd.DataFrame(data_map_user_2019_4["data"]["hoverData"]).transpose()
-df_map_user_2019_4.reset_index(inplace=True)
-df_map_user_2019_4.rename(columns={"index": "State"}, inplace=True)
-
-# Dat Frames 2018
-# Data Frames 2018_1
-df_map_user_2018_1 = pd.DataFrame(data_map_user_2018_1["data"]["hoverData"]).transpose()
-df_map_user_2018_1.reset_index(inplace=True)
-df_map_user_2018_1.rename(columns={"index": "State"}, inplace=True)
-
-# Data Frames 2018_2
-df_map_user_2018_2 = pd.DataFrame(data_map_user_2018_2["data"]["hoverData"]).transpose()
-df_map_user_2018_2.reset_index(inplace=True)
-df_map_user_2018_2.rename(columns={"index": "State"}, inplace=True)
-
-# Data Frames 2018_3
-df_map_user_2018_3 = pd.DataFrame(data_map_user_2018_3["data"]["hoverData"]).transpose()
-df_map_user_2018_3.reset_index(inplace=True)
-df_map_user_2018_3.rename(columns={"index": "State"}, inplace=True)
-
-# Data Frames 2018_4
-df_map_user_2018_4 = pd.DataFrame(data_map_user_2018_4["data"]["hoverData"]).transpose()
-df_map_user_2018_4.reset_index(inplace=True)
-df_map_user_2018_4.rename(columns={"index": "State"}, inplace=True)
-
-###################### To Merge the DataFrame in to one #################################################
-df_map_user_2022 = pd.concat([df_map_user_2022_1, df_map_user_2022_2, df_map_user_2022_3, df_map_user_2022_4], axis=0)
-df_map_user_2021 = pd.concat([df_map_user_2021_1, df_map_user_2021_2, df_map_user_2021_3, df_map_user_2021_4], axis=0)
-df_map_user_2020 = pd.concat([df_map_user_2020_1, df_map_user_2020_2, df_map_user_2020_3, df_map_user_2020_4], axis=0)
-df_map_user_2019 = pd.concat([df_map_user_2019_1, df_map_user_2019_2, df_map_user_2019_3, df_map_user_2019_4], axis=0)
-df_map_user_2018 = pd.concat([df_map_user_2018_1, df_map_user_2018_2, df_map_user_2018_3, df_map_user_2018_4], axis=0)
-
-
-df_map_user = pd.concat([df_map_user_2022,df_map_user_2021,df_map_user_2020,df_map_user_2019,df_map_user_2018], axis=0)
-
-
-df_map_user.to_excel("df_map_user.xlsx")
-from google.colab import files
-files.download("df_map_user.xlsx")
-
-display(df_map_user)
+df_map_user = pd.DataFrame(columns4)
